@@ -15,7 +15,7 @@ class Grisa:
     def init_options(self):
         self._op = webdriver.ChromeOptions() 
     
-    def set_options(self):
+    def set_default_options(self):
         self.op_add_argument('--headless')
         self.op_add_argument('--no-sandbox')
         self.op_add_argument('--disable-dev-shm-usage')
@@ -47,6 +47,9 @@ class Grisa:
     def driver_set_url(self, url):
         self.get_driver().get(url)
     
+    def driver_quit(self):
+        self.get_driver().quit()
+    
     def set_driver(self, driver):
         self._driver = driver
 
@@ -73,5 +76,6 @@ class Grisa:
     
     def search_by_image(self):
         self.find_element_by(By.CLASS_NAME, 'nDcEnd').click()
+    
     
 

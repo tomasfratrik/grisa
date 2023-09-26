@@ -15,11 +15,11 @@ class Grisa:
         self._op = webdriver.ChromeOptions() 
     
     def set_default_options(self):
-        self.op_add_argument('--headless')
-        self.op_add_argument('--no-sandbox')
-        self.op_add_argument('--disable-dev-shm-usage')
+        self.options_add_argument('--headless')
+        self.options_add_argument('--no-sandbox')
+        self.options_add_argument('--disable-dev-shm-usage')
 
-    def op_add_argument(self, arg):
+    def options_add_argument(self, arg):
         self._op.add_argument(arg)
     
     def get_options(self):
@@ -62,20 +62,20 @@ class Grisa:
     def get_wait(self):
         return self._wait
 
-    # sleep
-    @staticmethod
-    def sleep(sec):
-        sleep(sec)
-    
     # find element by
     def find_element_by(self, type_, value):
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
     def accept_cookies(self):
         self.find_element_by(By.ID, 'L2AGLb').click()
+        Grisa.sleep(1)
     
     def search_by_image(self):
         self.find_element_by(By.CLASS_NAME, 'nDcEnd').click()
+
+    @staticmethod
+    def sleep(sec):
+        sleep(sec)
     
     
 

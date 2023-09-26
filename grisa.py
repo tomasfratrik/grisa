@@ -63,7 +63,8 @@ class Grisa:
         return self._wait
 
     # sleep
-    def sleep(self, sec):
+    @staticmethod
+    def sleep(sec):
         sleep(sec)
     
     # find element by

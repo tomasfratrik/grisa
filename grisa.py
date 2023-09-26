@@ -29,7 +29,7 @@ class Grisa:
     def init_path(self, path):
         service = Service(executable_path=os.environ.get(path))
         self.set_service(service)
-    
+
     def set_service(self, service):
         self._service = service
     def get_service(self):

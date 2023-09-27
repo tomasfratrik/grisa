@@ -25,7 +25,7 @@ class Grisa:
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
 
         else:
-            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_IMG).send_keys(img)
+            self._find_element_by(By.XPATH, PageNav.SEARCH_IMG.value).send_keys(img)
 
     # options
     def _init_options(self):

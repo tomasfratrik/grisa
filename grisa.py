@@ -13,15 +13,24 @@ from .utils import Utils
 from .identificators import PageNav, SimiliarImgPage, SourceImgPage
 
 class Grisa:
+    GOOGLE_IMG_URL = 'https://www.google.com/imghp?hl=en'
     def __init__(self):
-        self.init_options()
+        self._init_options()
+    
+    def run(self, img):
+        self._accept_cookies()
+        self._search_by_image()
+        if Utils.is_url(img):
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
+
+        else:
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_IMG).send_keys(img)
 
     # options
-    def init_options(self):
+    def _init_options(self):
         self._op = webdriver.ChromeOptions() 
-    
-    def set_default_options(self):
-        # self.options_add_argument('--headless')
+        self.options_add_argument('--headless')
         self.options_add_argument('--no-sandbox')
         self.options_add_argument('--disable-dev-shm-usage')
 
@@ -32,25 +41,24 @@ class Grisa:
         return self._op
     
     # service
-    def init_path(self, path):
+    def set_driver_path(self, path):
         service = Service(executable_path=os.environ.get(path))
         self.set_service(service)
-
     def set_service(self, service):
         self._service = service
     def get_service(self):
         return self._service
+
     # binary
-    def init_binary(self, path):
+    def set_binary_path(self, path):
         self.get_options().binary_location = os.environ.get(path)
 
     # driver
     def init_driver(self):
         driver = webdriver.Chrome(service=self.get_service(), options=self.get_options())
         self.set_driver(driver)
-    
-    def driver_set_url(self, url):
-        self.get_driver().get(url)
+        self.get_driver().get(self.GOOGLE_IMG_URL)
+        self.set_wait(10)
     
     def driver_quit(self):
         self.get_driver().quit()
@@ -72,20 +80,11 @@ class Grisa:
     def _find_element_by(self, type_, value):
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
-    def accept_cookies(self):
+    def _accept_cookies(self):
         self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value).click()
         Utils.sleep(1)
     
-    def search_by_image(self):
+    def _search_by_image(self):
         self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value).click()
-
-    def search(self, img):
-
-        if Utils.is_url(img):
-            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
-            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
-
-        else:
-            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_IMG).send_keys(img)
     
 

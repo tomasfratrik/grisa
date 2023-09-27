@@ -1,10 +1,16 @@
+# global
 import os
+import re
+from time import sleep
+# selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from time import sleep
+# local
+from .utils import Utils
+from .identificators import PageNav, SimiliarImgPage, SourceImgPage
 
 class Grisa:
     def __init__(self):
@@ -15,7 +21,7 @@ class Grisa:
         self._op = webdriver.ChromeOptions() 
     
     def set_default_options(self):
-        self.options_add_argument('--headless')
+        # self.options_add_argument('--headless')
         self.options_add_argument('--no-sandbox')
         self.options_add_argument('--disable-dev-shm-usage')
 
@@ -63,19 +69,23 @@ class Grisa:
         return self._wait
 
     # find element by
-    def find_element_by(self, type_, value):
+    def _find_element_by(self, type_, value):
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
     def accept_cookies(self):
-        self.find_element_by(By.ID, 'L2AGLb').click()
-        Grisa.sleep(1)
+        self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value).click()
+        Utils.sleep(1)
     
     def search_by_image(self):
-        self.find_element_by(By.CLASS_NAME, 'nDcEnd').click()
+        self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value).click()
 
-    @staticmethod
-    def sleep(sec):
-        sleep(sec)
-    
+    def search(self, img):
+
+        if Utils.is_url(img):
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
+
+        else:
+            self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_IMG).send_keys(img)
     
 

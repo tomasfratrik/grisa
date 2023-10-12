@@ -1,6 +1,8 @@
 from enum import Enum
 
 class SimiliarImgPage(Enum):
+    CONTAINER = 'aah4tc'
+    CONTAINER_TAG = 'div'
     WEBSITE = 'fjbPGe'
     WEBSITE_TAG = 'span'
     DESC = 'UAiK1e'

@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 # local
 from .utils import Utils
 from .identificators import PageNav, SimiliarImgPage, SourceImgPage
+from .scraper import Scraper
 
 class Grisa:
     GOOGLE_IMG_URL = 'https://www.google.com/imghp?hl=en'
@@ -26,6 +27,10 @@ class Grisa:
 
         else:
             self._find_element_by(By.XPATH, PageNav.SEARCH_IMG.value).send_keys(img)
+        Utils.sleep(1)
+
+    def scrape_similiar(self, page_src):
+        return Scraper.scrape_similiar(page_src)
 
     # options
     def _init_options(self):
@@ -63,6 +68,9 @@ class Grisa:
     def driver_quit(self):
         self.get_driver().quit()
     
+    def get_page_source(self):
+        return self.get_driver().page_source
+    
     def set_driver(self, driver):
         self._driver = driver
 
@@ -86,5 +94,6 @@ class Grisa:
     
     def _search_by_image(self):
         self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value).click()
+    
     
 

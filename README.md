@@ -10,16 +10,17 @@ from grisa import Grisa, SimiliarImgPage, SourceImgPage
 
 
 ## Usage example:
-PATH="path to your chromedriver"
-grisa = Grisa()
-grisa.set_driver_path(PATH)
-grisa.init_driver()
-grisa.run(absolute path to image)
-page_source = grisa.get_page_source()
-similiar_img_json = grisa.scrape_similiar(page_source)
-grisa.driver_quit()
+* PATH="path to your chromedriver"
+* grisa = Grisa()
+* grisa.set_driver_path(PATH)
+- possible to set binary path here
+* grisa.init_driver()
+* grisa.run(absolute path to image)
+* page_source = grisa.get_page_source()
+* similiar_img_json = grisa.scrape_similiar(page_source)
+* grisa.driver_quit()
 
-## todos:
+## Todos:
 - [x] Add support for scraping source image page
 - [x] Support for images as url links
 

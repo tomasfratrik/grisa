@@ -14,6 +14,8 @@ class SimiliarImgPage(Enum):
     LINK_TAG = 'a'
 
 class SourceImgPage(Enum):
+    CONTAINER = 'pFjtkf'
+    CONTAINER_TAG = 'ul'
     WEBSITE = 'ShWW9'
     WEBSITE_TAG = 'div'
     DESC = 'iJmjmd'
@@ -29,6 +31,5 @@ class PageNav(Enum):
     SEARCH_BY_IMAGE = 'nDcEnd'
     SEARCH_URL = 'cB9M7'
     SEARCH_IMG = '//input[@type="file"]'
-    # SEARCH_IMG = 'DV7the'
     SEARCH_URL_BTN = 'Qwbd3'
     FIND_IMG_SRC = 'z3qvzf'

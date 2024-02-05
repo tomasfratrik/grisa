@@ -1,7 +1,6 @@
 # global
 import os
 import re
-from time import sleep
 # selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -10,11 +9,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 # local
 from .utils import Utils
-from .identificators import PageNav, SimiliarImgPage, SourceImgPage
+from .identificators import PageNav, SourceImgPage  
 from .scraper import Scraper
 
 class Grisa:
-    GOOGLE_IMG_URL = 'https://www.google.com/imghp?hl=en'
+    GOOGLE_REVERSE_IMG_ENGINE = 'https://www.google.com/imghp?hl=en'
     def __init__(self):
         self._init_options()
     
@@ -31,6 +30,13 @@ class Grisa:
 
     def scrape_similiar(self, page_src):
         return Scraper.scrape_similiar(page_src)
+    
+    def scrape_source(self, page_src):
+        return Scraper.scrape_source(page_src)
+    
+    def go_to_source(self):
+        self._find_element_by(By.CLASS_NAME, PageNav.FIND_IMG_SRC.value).click()
+        self._find_element_by(By.CLASS_NAME, SourceImgPage.CONTAINER.value)
 
     # options
     def _init_options(self):
@@ -62,7 +68,7 @@ class Grisa:
     def init_driver(self):
         driver = webdriver.Chrome(service=self.get_service(), options=self.get_options())
         self.set_driver(driver)
-        self.get_driver().get(self.GOOGLE_IMG_URL)
+        self.get_driver().get(self.GOOGLE_REVERSE_IMG_ENGINE)
         self.set_wait(10)
     
     def driver_quit(self):

@@ -17,8 +17,10 @@ class Grisa:
     def __init__(self):
         self._init_options()
     
-    def run(self, img):
-        self._accept_cookies()
+    def run(self, img, accept_cookies=True):
+        if accept_cookies:
+            self._accept_cookies()
+        Utils.sleep(2)
         self._search_by_image()
         if Utils.is_url(img):
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
@@ -44,6 +46,7 @@ class Grisa:
         self.options_add_argument('--headless')
         self.options_add_argument('--no-sandbox')
         self.options_add_argument('--disable-dev-shm-usage')
+        self.options_add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
 
     def options_add_argument(self, arg):
         self._op.add_argument(arg)
@@ -95,11 +98,15 @@ class Grisa:
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
     def _accept_cookies(self):
-        self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value).click()
+        elem = self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value)
+        driver = self.get_driver()
+        driver.execute_script("arguments[0].click();", elem)
         Utils.sleep(1)
     
     def _search_by_image(self):
-        self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value).click()
+        elem = self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value)
+        driver = self.get_driver()
+        driver.execute_script("arguments[0].click();", elem)
     
     
 

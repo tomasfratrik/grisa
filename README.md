@@ -14,6 +14,9 @@ from grisa import Grisa
 - Beautifulsoup4
 - ChromeDriver
 
+### Install with
+`pip install -r requirements.txt`
+
 ## Usage example:
 ```python
 PATH="path to your chromedriver"
@@ -32,5 +35,5 @@ grisa.driver_quit()
 ```
 
 ## Todos:
-- [x] Support for images as url links
+- [] Support for images as url links
 

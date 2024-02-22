@@ -1,4 +1,7 @@
-# Google reverse image search API
+# Google Reverse Image Search API
+## IMPORTANT
+This project is a student project, and will possibly contain a lot of bugs, and code could change a lot.
+
 ## Brief
 This api is able to scrape google reverse image search results using selenium bot and beautifulsoup4 for scraping.
 
@@ -13,19 +16,45 @@ from grisa import Grisa
 - Selenium
 - Beautifulsoup4
 - ChromeDriver
-
-### Install with
+#### Install requirements with
 `pip install -r requirements.txt`
+
+## API
+### Check `Usage example` section for usage example
+Grisa class has following methods:
+- `options_add_argument("option")` - Add argument to options
+- `set_driver_path(DRIVER_PATH)`- Set path to chromedriver
+- `init_binary(BINARY)` - Set binary path
+- `init_driver()` - Init driver
+- `run(ABSOLUTE_PATH_TO_IMAGE, accept_cookies=True/False, local_dev=True/False)` - Run bot
+    - accept_cookies (default: True) -> If you are not logged in to google account, 
+                                        (in selenium browser, which you probably aren't), you need to accept cookies-
+        - True: Accept cookies
+        - False: Do not accept cookies
+    - local_dev (default: True) -> Different way to click on elements on page using selenium 
+        - True: was used when running on local machine
+        - False: was used when deployed to heroku, otherwise wasn't working 
+- `get_page_source()` - Get page source
+- `scrape_similiar(page_source)` - Scrape similiar images
+- `go_to_source()` - Go to source image
+- `scrape_source(page_source)` - Scrape source image
+- `driver_quit()` - Quit driver
+
+
 
 ## Usage example:
 ```python
-PATH="path to your chromedriver"
+import os
+from grisa import Grisa
+ 
 grisa = Grisa()
-grisa.set_driver_path(PATH)
-# possible to set binary
-# grisa.init_binary("GOOGLE_CHROME_BIN")
+grisa.options_add_argument('--headless')
+grisa.options_add_argument('--no-sandbox')
+grisa.options_add_argument('--disable-dev-shm-usage')
+grisa.options_add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
+grisa.set_driver_path(PATH_TO_YOU_CHROMEDRIVER)
 grisa.init_driver()
-grisa.run(absolute path to image)
+grisa.run(ABSOLUTE_PATH_TO_IMAGE, accept_cookies=True, local_dev=True)
 page_source = grisa.get_page_source()
 similiar_img_json = grisa.scrape_similiar(page_source)
 grisa.go_to_source()
@@ -35,5 +64,5 @@ grisa.driver_quit()
 ```
 
 ## Todos:
-- [] Support for images as url links
+- [ ] Support for images as url links
 

@@ -114,7 +114,6 @@ class Grisa:
         else:
             driver = self.get_driver()
             driver.execute_script("arguments[0].click();", elem)
-        elem.click()
     
     
 

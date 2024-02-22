@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-# local
+# local_dev
 from .utils import Utils
 from .identificators import PageNav, SourceImgPage  
 from .scraper import Scraper
@@ -15,14 +15,14 @@ from .scraper import Scraper
 class Grisa:
     GOOGLE_REVERSE_IMG_ENGINE = 'https://www.google.com/imghp?hl=en'
     def __init__(self):
-        self._init_options()
+        self._op = webdriver.ChromeOptions() 
     
-    def run(self, img, accept_cookies=True, local=False):
+    def run(self, img, accept_cookies=True, local_dev=False):
 
         if accept_cookies:
-            self._accept_cookies(local=local)
+            self._accept_cookies(local_dev=local_dev)
         Utils.sleep(2)
-        self._search_by_image(local=local)
+        self._search_by_image(local_dev=local_dev)
         if Utils.is_url(img):
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
@@ -42,13 +42,6 @@ class Grisa:
         self._find_element_by(By.CLASS_NAME, SourceImgPage.CONTAINER.value)
 
     # options
-    def _init_options(self):
-        self._op = webdriver.ChromeOptions() 
-        self.options_add_argument('--headless')
-        self.options_add_argument('--no-sandbox')
-        self.options_add_argument('--disable-dev-shm-usage')
-        self.options_add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
-
     def options_add_argument(self, arg):
         self._op.add_argument(arg)
     
@@ -98,18 +91,18 @@ class Grisa:
     def _find_element_by(self, type_, value):
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
-    def _accept_cookies(self, local=False):
+    def _accept_cookies(self, local_dev=False):
         elem = self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value)
-        if local:
+        if local_dev:
             elem.click()
         else:
             driver = self.get_driver()
             driver.execute_script("arguments[0].click();", elem)
         Utils.sleep(1)
     
-    def _search_by_image(self, local=False):
+    def _search_by_image(self, local_dev=False):
         elem = self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value)
-        if local:
+        if local_dev:
             elem.click()
         else:
             driver = self.get_driver()

@@ -17,11 +17,12 @@ class Grisa:
     def __init__(self):
         self._init_options()
     
-    def run(self, img, accept_cookies=True):
+    def run(self, img, accept_cookies=True, local=False):
+
         if accept_cookies:
-            self._accept_cookies()
+            self._accept_cookies(local=local)
         Utils.sleep(2)
-        self._search_by_image()
+        self._search_by_image(local=local)
         if Utils.is_url(img):
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL.value).send_keys(img)
             self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_URL_BTN.value).click()
@@ -97,16 +98,23 @@ class Grisa:
     def _find_element_by(self, type_, value):
         return self.get_wait().until(EC.presence_of_element_located((type_, value)))
     
-    def _accept_cookies(self):
+    def _accept_cookies(self, local=False):
         elem = self._find_element_by(By.ID, PageNav.ACCEPT_COOKIES.value)
-        driver = self.get_driver()
-        driver.execute_script("arguments[0].click();", elem)
+        if local:
+            elem.click()
+        else:
+            driver = self.get_driver()
+            driver.execute_script("arguments[0].click();", elem)
         Utils.sleep(1)
     
-    def _search_by_image(self):
+    def _search_by_image(self, local=False):
         elem = self._find_element_by(By.CLASS_NAME, PageNav.SEARCH_BY_IMAGE.value)
-        driver = self.get_driver()
-        driver.execute_script("arguments[0].click();", elem)
+        if local:
+            elem.click()
+        else:
+            driver = self.get_driver()
+            driver.execute_script("arguments[0].click();", elem)
+        elem.click()
     
     
 

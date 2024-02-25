@@ -41,7 +41,7 @@ class Grisa:
         self._find_element_by(By.CLASS_NAME, PageNav.FIND_IMG_SRC.value).click()
         self._find_element_by(By.CLASS_NAME, SourceImgPage.CONTAINER.value)
 
-    # options
+    # option
     def options_add_argument(self, arg):
         self._op.add_argument(arg)
     

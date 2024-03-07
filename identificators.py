@@ -25,6 +25,8 @@ class SourceImgPage(Enum):
     IMGURL_SRC = 'src'
     LINK = 'lXbkTc'
     LINK_TAG = 'a'
+    RESOLUTION = 'QJLLAc'
+    RESOLUTION_TAG = 'div'
 
 class PageNav(Enum):
     ACCEPT_COOKIES = 'L2AGLb'

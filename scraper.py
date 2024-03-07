@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from .identificators import SimiliarImgPage, SourceImgPage
+import re
 
 class Scraper:
 
@@ -13,6 +14,8 @@ class Scraper:
             desc = item.find_all(id.DESC_TAG.value, class_=id.DESC.value)
             imgURL = item.find_all(id.IMGURL_TAG.value, class_=id.IMGURL.value)
             link = item.find_all(id.LINK_TAG.value, class_=id.LINK.value)
+            if id == SourceImgPage:
+                resolution = item.find_all(id.RESOLUTION_TAG.value, class_=id.RESOLUTION.value)
         data = []
 
         pos = 0
@@ -25,6 +28,18 @@ class Scraper:
                     'link': link[i]['href'],
                     "position": pos
                 }
+
+                if id == SourceImgPage:
+                    input_string = resolution[i].text
+                    match = re.search(r'(\d+)x(\d+)', input_string)
+
+                    if match:
+                        resolution_tuple = (int(match.group(1)), int(match.group(2)))
+                        new_data['resolution'] = resolution_tuple
+                    else:
+                        new_data['resolution'] = None
+                else:
+                    new_data['resolution'] = None
                 pos += 1
                 data.append(new_data)
             except Exception as err:

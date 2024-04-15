@@ -34,4 +34,5 @@ class PageNav(Enum):
     SEARCH_URL = 'cB9M7'
     SEARCH_IMG = '//input[@type="file"]'
     SEARCH_URL_BTN = 'Qwbd3'
-    FIND_IMG_SRC = 'z3qvzf'
+    # FIND_IMG_SRC = 'z3qvzf'
+    FIND_IMG_SRC = 'VfPpkd-LgbsSe-OWXEXe-INsAgc'

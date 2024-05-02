@@ -1,9 +1,6 @@
 # Google Reverse Image Search API
-## IMPORTANT
-This project is a student project, and will possibly contain a lot of bugs, and code could change a lot.
-
 ## Brief
-This api is able to scrape google reverse image search results using selenium bot and beautifulsoup4 for scraping.
+This api scrapes google reverse image search results using `selenium` bot and `beautifulsoup4` for scraping.
 
 ## Installation
 Import to project folder inside your project folder
@@ -18,6 +15,27 @@ from grisa import Grisa
 - ChromeDriver
 #### Install requirements with
 `pip install -r requirements.txt`
+
+
+### Return format (JSON)
+- returns tuple of 2 values
+- first value are similar images, which is a list of objects:
+``` 
+{
+    'website': website name,
+    'description': description,
+    'imageurl': url link to image,
+    'link': url link to ad listing,
+    'position': position in which it was found,
+}
+```
+Careful, the description is incomplete, containing sometimes only 5 words!
+
+- second are source images, which are same as similar with addition of:
+```
+'resolution': (x,y),
+```
+
 
 ## API
 ### Check `Usage example` section for usage example
@@ -62,7 +80,4 @@ page_source = grisa.get_page_source()
 source_img_json = grisa.scrape_source(page_source)
 grisa.driver_quit()
 ```
-
-## Todos:
-- [ ] Support for images as url links
 

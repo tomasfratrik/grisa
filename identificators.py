@@ -1,3 +1,9 @@
+"""
+Enumeration calsse for identificators
+
+Author: Tomas Fratrik
+"""
+
 from enum import Enum
 
 class SimiliarImgPage(Enum):

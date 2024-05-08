@@ -1,13 +1,16 @@
-# global
+"""
+Grisa class which contains the API functionality
+
+Author: Tomas Fratrik
+"""
+
 import os
 import re
-# selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-# local_dev
 from .utils import Utils
 from .identificators import PageNav, SourceImgPage  
 from .scraper import Scraper

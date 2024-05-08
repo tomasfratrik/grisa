@@ -8,14 +8,8 @@ Import to project folder inside your project folder
 from grisa import Grisa
 ```
 
-## Requirements
-- Python 3.6+
-- Selenium
-- Beautifulsoup4
-- ChromeDriver
-#### Install requirements with
-`pip install -r requirements.txt`
-
+### Requirements 
+Within your wirtual enviroment install requirements with `pip install -r requirements.txt`
 
 ### Return format (JSON)
 - returns tuple of 2 values

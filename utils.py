@@ -1,3 +1,9 @@
+"""
+Utility functions
+
+Author: Tomas Fratrik
+"""
+
 from time import sleep
 import re
 

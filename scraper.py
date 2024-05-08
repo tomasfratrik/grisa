@@ -1,3 +1,9 @@
+""" 
+Class to scrape Google's results page for similar images and source image
+
+Author: Tomas Fratrik
+"""
+
 from bs4 import BeautifulSoup
 from .identificators import SimiliarImgPage, SourceImgPage
 import re
